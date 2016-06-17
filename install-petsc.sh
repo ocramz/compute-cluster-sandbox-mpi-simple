@@ -9,11 +9,10 @@ export PETSC_DIR=/opt/petsc-$PETSC_VERSION
 export PETSC_ARCH=arch-linux2-c-debug
 
 # # # Update APT and install dependencies and tools
-apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
-                       make \
-                       gcc gfortran wget curl unzip python pkg-config build-essential \
-                       valgrind \
-		       openssh-client openssh-server
+apt-get update && apt-get install -y --no-install-recommends \
+			  gcc gfortran \
+			  wget curl unzip python pkg-config build-essential \
+		          openssh-client openssh-server
 
 
 # # Download and extract PETSc.
