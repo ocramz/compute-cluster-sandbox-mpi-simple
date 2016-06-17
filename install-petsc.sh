@@ -1,12 +1,12 @@
 #!/bin/bash
 
-export PETSC_VERSION=3.7.2
+# export PETSC_VERSION=3.7.2
 
 
-# # env. variables
+# # # env. variables
 
-export PETSC_DIR=/opt/petsc-$PETSC_VERSION
-export PETSC_ARCH=arch-linux2-c-debug
+# export PETSC_DIR=/opt/petsc-$PETSC_VERSION
+# export PETSC_ARCH=arch-linux2-c-debug
 
 # # # Update APT and install dependencies and tools
 apt-get update && apt-get install -y --no-install-recommends \
