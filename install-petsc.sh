@@ -10,7 +10,7 @@ export PETSC_ARCH=arch-linux2-c-debug
 
 # # # Update APT and install dependencies and tools
 apt-get update && apt-get install -y --no-install-recommends \
-			  gcc gfortran \
+			  # gcc gfortran \
 			  wget curl unzip python pkg-config build-essential \
 		          openssh-client openssh-server
 

@@ -7,6 +7,12 @@ language:
 services:
   - docker
 
+addons:
+  apt:
+    packages:
+    - gfortran
+    - gcc
+
 before_install:  
   - sudo ./install-petsc.sh
   
