@@ -1,18 +1,23 @@
 sudo: 
-  false
+  required
 
 language: 
   c 
 
 services:
   - docker
-  
+
+before_install:  
 # install mpich  
   - sudo ./install-petsc.sh
   
-  
 script:
+  - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpicc src/helloworld.c -o helloworld
   # 
-  # 2. send benchmark file from master to a compute node
+  # provision cluster
+  - docker pull ocramz/petsc-docker:petsc-3.7
+  - docker run -d -h node01 --name cont01 ocramz/petsc-docker:petsc-3.7 /usr/sbin/sshd –D
+  - docker run -d -h node02 --name cont01 ocramz/petsc-docker:petsc-3.7 /usr/sbin/sshd –D
   
-  # 3. send benchmark result file from compute node to master
+  # run
+  - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpirun -np 2 -hostlist node01,node02 helloworld
