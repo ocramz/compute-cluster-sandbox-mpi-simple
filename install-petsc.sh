@@ -16,6 +16,8 @@ wget --no-verbose http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-
 cd $PETSC_DIR
 
 ls -lsA
+pwd
+echo $PETSC_DIR
 
 echo "=== Configuring without batch mode"
 
