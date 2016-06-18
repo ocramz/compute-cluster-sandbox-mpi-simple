@@ -15,6 +15,8 @@ wget --no-verbose http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-
 
 cd $PETSC_DIR
 
+ls -lsA
+
 echo "=== Configuring without batch mode"
 
 ./configure --with-cc=gcc --with-cxx=g++ --with-fc=gfortran --download-fblaslapack --download-mpich &&\
