@@ -1,5 +1,5 @@
 sudo: 
-  required
+  false
 
 language: 
   c 
@@ -22,12 +22,12 @@ before_install:
 
   - printenv | grep PETSC
   
-  - sudo ./install-petsc.sh
+  - ./install-petsc.sh
   
 script:
   - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpicc src/helloworld.c -o helloworld
 
-  # # provision cluster
+  # # provision cluster (NB: pulling tag `petsc-3.7.2` from Docker hub)
   - docker pull ocramz/petsc-docker:petsc-3.7.2
   - docker run -d -h node01 --name cont01 ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
   - docker run -d -h node02 --name cont01 ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
