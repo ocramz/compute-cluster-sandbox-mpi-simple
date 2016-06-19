@@ -7,38 +7,38 @@ language:
 services:
   - docker
 
-addons:
-  apt:
-    packages:
-    - gfortran
-    - gcc
+# addons:
+#   apt:
+#     packages:
+#     - gfortran
+#     - gcc
 
 
 before_install:
   # update Docker
   - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine mpich libmpich-dev
 
   # Travis `env` is available only at the `script` phase, and not here :/
-  - export PETSC_VERSION=3.7.2
-  - export PETSC_DIR=${PWD}/petsc-${PETSC_VERSION}
-  - export PETSC_ARCH=arch-linux2-c-debug
+  # - export PETSC_VERSION=3.7.2
+  # - export PETSC_DIR=${PWD}/petsc-${PETSC_VERSION}
+  # - export PETSC_ARCH=arch-linux2-c-debug
 
   # show environment vars
-  - printenv | grep PETSC
+  # - printenv | grep PETSC
 
   # display hosts file
   - cat /etc/hosts
 
-
+  # Docker networking
   - docker network create --driver bridge network1
   - docker network inspect network1
 
-  # # provision cluster (NB: pulling tag `petsc-3.7.2` from Docker hub): each MPI node runs in a separate Docker container
-  - docker pull ocramz/petsc-docker:petsc-3.7.2
+  # # provision cluster 
+  - docker pull ocramz/mpich-docker
   
-  - docker run -d --net=network1 -h node01 --name node01cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
-  - docker run -d --net=network1 -h node02 --name node02cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
+  - docker run -d --net=network1 -h node01 --name node01cont ocramz/mpich-docker /usr/sbin/sshd –D
+  - docker run -d --net=network1 -h node02 --name node02cont ocramz/mpich-docker /usr/sbin/sshd –D
 
   # the two new containers should now appear in the Docker `bridge` network:
   - docker network inspect network1
