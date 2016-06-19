@@ -15,7 +15,7 @@
 help:
 	@echo "Use \`make <target>\` where <target> is one of"
 	@echo "  help     to display this help message"
-	@echo "network_test  test Docker networking"
+	@echo "  network_test  test Docker networking"
 
 
 network_test:
@@ -24,8 +24,17 @@ network_test:
 
 	# # provision cluster 
 	docker pull ocramz/mpich-docker
-	docker run -d --net=network1 -h node01 --name node01cont ocramz/mpich-docker /usr/sbin/sshd –D
-	docker run -d --net=network1 -h node02 --name node02cont ocramz/mpich-docker /usr/sbin/sshd –D
+	docker run -d --net=network1 -h node01 --name node01cont ocramz/mpich-docker
+	docker run -d --net=network1 -h node02 --name node02cont ocramz/mpich-docker
 
 	# the two new containers should now appear in the Docker `bridge` network:
 	docker network inspect network1
+
+network_test_rm:
+	docker stop node01cont
+	docker stop node02cont
+	docker rm node01cont
+	docker rm node02cont
+	docker network rm network01
+
+

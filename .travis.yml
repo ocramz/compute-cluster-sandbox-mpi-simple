@@ -22,8 +22,8 @@ before_install:
   # # provision cluster 
   - docker pull ocramz/mpich-docker
   
-  - docker run -d --net=network1 -h node01 --name node01cont ocramz/mpich-docker /usr/sbin/sshd –D
-  - docker run -d --net=network1 -h node02 --name node02cont ocramz/mpich-docker /usr/sbin/sshd –D
+  - docker run -d --net=network1 -h node01 --name node01cont ocramz/mpich-docker
+  - docker run -d --net=network1 -h node02 --name node02cont ocramz/mpich-docker
 
   # the two new containers should now appear in the Docker `bridge` network:
   - docker network inspect network1
