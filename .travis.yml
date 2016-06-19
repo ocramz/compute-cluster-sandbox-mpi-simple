@@ -16,7 +16,7 @@ addons:
 
 before_install:
   # update Docker
-  - sudo apt-get update -y 
+  - sudo apt-get update
   - yes | sudo apt-get -y --force-yes install docker-engine
 
   # Travis `env` is available only at the `script` phase, and not here :/
