@@ -30,11 +30,14 @@ before_install:
   # display hosts file
   - cat /etc/hosts
 
+  - docker network inspect bridge
+
   # # provision cluster (NB: pulling tag `petsc-3.7.2` from Docker hub): each MPI node runs in a separate Docker container
   - docker pull ocramz/petsc-docker:petsc-3.7.2
   - docker run -d -h node01 --name node01cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
   - docker run -d -h node02 --name node02cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
 
+  # the two new containers should now appear in the Docker `bridge` network:
   - docker network inspect bridge
 
 
