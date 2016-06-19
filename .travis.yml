@@ -1,5 +1,5 @@
 sudo: 
-  false
+  required
 
 language: 
   c 
@@ -17,12 +17,16 @@ addons:
 before_install:
   # Travis `env` is available only at the `script` phase, and not here :/
   - export PETSC_VERSION=3.7.2
-  - export PETSC_DIR=/opt/petsc-${PETSC_VERSION}
+  - export PETSC_DIR=${HOME}/petsc-${PETSC_VERSION}
   - export PETSC_ARCH=arch-linux2-c-debug
 
+  # make directories
+  - mkdir -p ${PETSC_DIR}
+
+  # show environment vars
   - printenv | grep PETSC
   
-  - ./install-petsc.sh
+  - sudo ./install-petsc.sh ${PETSC_VERSION} ${PETSC_DIR}
   
 script:
   - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpicc src/helloworld.c -o helloworld

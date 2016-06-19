@@ -1,5 +1,8 @@
 #!/bin/bash
 
+PETSC_VERSION=$1
+PETSC_DIR=$2
+
 # # # Update APT and install dependencies and tools
 apt-get update && apt-get install -y --no-install-recommends \
 			  wget curl unzip python pkg-config build-essential \
