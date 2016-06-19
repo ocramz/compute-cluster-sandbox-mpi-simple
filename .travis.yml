@@ -14,9 +14,10 @@ addons:
     - gcc
 
 env:
-  - PETSC_VERSION=3.7.2
-  - PETSC_DIR=/opt/petsc-${PETSC_VERSION}
-  - PETSC_ARCH=arch-linux2-c-debug
+  global:
+    - PETSC_VERSION=3.7.2
+    - PETSC_DIR=/opt/petsc-${PETSC_VERSION}
+    - PETSC_ARCH=arch-linux2-c-debug
 
 before_install:  
   - sudo ./install-petsc.sh
@@ -24,10 +25,10 @@ before_install:
 script:
   - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpicc src/helloworld.c -o helloworld
 
-  # provision cluster
+  # # provision cluster
   - docker pull ocramz/petsc-docker:petsc-3.7.2
   - docker run -d -h node01 --name cont01 ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
   - docker run -d -h node02 --name cont01 ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
   
-  # run
+  # # run
   - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpirun -np 2 -hostlist node01,node02 helloworld
