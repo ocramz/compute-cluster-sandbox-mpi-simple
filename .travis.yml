@@ -13,6 +13,11 @@ addons:
     - gfortran
     - gcc
 
+env:
+  - PETSC_VERSION 3.7.2
+  - PETSC_DIR /opt/petsc-${PETSC_VERSION}
+  - PETSC_ARCH arch-linux2-c-debug
+
 before_install:  
   - sudo ./install-petsc.sh
   
