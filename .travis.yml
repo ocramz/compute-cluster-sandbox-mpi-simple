@@ -25,8 +25,8 @@ before_install:
 
   # display hosts file
   - cat /etc/hosts
-  
-  
+
+    
   
 script:
   # install PETSc
@@ -40,6 +40,8 @@ after_success:
   - docker pull ocramz/petsc-docker:petsc-3.7.2
   - docker run -d -h node01 --name node01cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
   - docker run -d -h node02 --name node02cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
-  
+
+  - docker network inspect bridge
+
   # # # run
   # - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpirun -np 2 -hostlist node01,node02 helloworld
