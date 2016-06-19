@@ -26,6 +26,12 @@ before_install:
   # display hosts file
   - cat /etc/hosts
 
+  # # provision cluster (NB: pulling tag `petsc-3.7.2` from Docker hub): each MPI node runs in a separate Docker container
+  - docker pull ocramz/petsc-docker:petsc-3.7.2
+  - docker run -d -h node01 --name node01cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
+  - docker run -d -h node02 --name node02cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
+
+  - docker network inspect bridge
     
   
 script:
@@ -36,12 +42,7 @@ script:
   - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpicc src/helloworld.c -o helloworld
 
 after_success:
-  # # provision cluster (NB: pulling tag `petsc-3.7.2` from Docker hub): each MPI node runs in a separate Docker container
-  - docker pull ocramz/petsc-docker:petsc-3.7.2
-  - docker run -d -h node01 --name node01cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
-  - docker run -d -h node02 --name node02cont ocramz/petsc-docker:petsc-3.7.2 /usr/sbin/sshd –D
 
-  - docker network inspect bridge
 
   # # # run
   # - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpirun -np 2 -hostlist node01,node02 helloworld
