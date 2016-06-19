@@ -22,6 +22,9 @@ before_install:
 
   # show environment vars
   - printenv | grep PETSC
+
+  # display hosts file
+  - cat /etc/hosts
   
   
   
