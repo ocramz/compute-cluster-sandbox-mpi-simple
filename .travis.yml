@@ -7,25 +7,10 @@ language:
 services:
   - docker
 
-# addons:
-#   apt:
-#     packages:
-#     - gfortran
-#     - gcc
-
-
 before_install:
   # update Docker
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine mpich libmpich-dev
-
-  # Travis `env` is available only at the `script` phase, and not here :/
-  # - export PETSC_VERSION=3.7.2
-  # - export PETSC_DIR=${PWD}/petsc-${PETSC_VERSION}
-  # - export PETSC_ARCH=arch-linux2-c-debug
-
-  # show environment vars
-  # - printenv | grep PETSC
 
   # display hosts file
   - cat /etc/hosts
@@ -46,16 +31,12 @@ before_install:
 
   
 script:
-  # install PETSc
-  - sudo ./install-petsc.sh ${PETSC_VERSION} ${PETSC_DIR}
-
   # compile test MPI executable
-  - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpicc src/helloworld.c -o helloworld
+  - mpicc src/helloworld.c -o helloworld
 
 
 
 after_success:
 
-
   # # # run
-  # - ${PETSC_DIR}/${PETSC_ARCH}/bin/mpirun -np 2 -hostlist node01,node02 helloworld
+  # - mpirun -np 2 -hostlist node01,node02 helloworld
