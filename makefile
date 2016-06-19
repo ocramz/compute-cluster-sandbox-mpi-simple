@@ -9,3 +9,23 @@
 #         $ $MPI_ROOT/bin/mpicc hello_world.c -o hello_world
 
 #         $ $MPI_ROOT/bin/mpirun -np 4 -hostlist node01,node02,node03,node04 ./hello_world
+
+.DEFAULT_GOAL := help
+
+help:
+	@echo "Use \`make <target>\` where <target> is one of"
+	@echo "  help     to display this help message"
+	@echo "network_test  test Docker networking"
+
+
+network_test:
+	docker network create --driver bridge network1
+	docker network inspect network1
+
+	# # provision cluster 
+	docker pull ocramz/mpich-docker
+	docker run -d --net=network1 -h node01 --name node01cont ocramz/mpich-docker /usr/sbin/sshd –D
+	docker run -d --net=network1 -h node02 --name node02cont ocramz/mpich-docker /usr/sbin/sshd –D
+
+	# the two new containers should now appear in the Docker `bridge` network:
+	docker network inspect network1
