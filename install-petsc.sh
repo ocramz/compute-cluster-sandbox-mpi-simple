@@ -8,8 +8,6 @@ apt-get update && apt-get install -y --no-install-recommends \
 			  wget curl unzip python pkg-config build-essential \
 		          openssh-client openssh-server
 
-cd /opt
-
 # # Download and extract PETSc.
 wget --no-verbose http://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-lite-$PETSC_VERSION.tar.gz && \
     gunzip -c petsc-lite-$PETSC_VERSION.tar.gz | tar -xof -
