@@ -19,6 +19,9 @@ before_install:
   - export PETSC_VERSION=3.7.2
   - export PETSC_DIR=/opt/petsc-${PETSC_VERSION}
   - export PETSC_ARCH=arch-linux2-c-debug
+
+  - printenv | grep PETSC
+  
   - sudo ./install-petsc.sh
   
 script:
