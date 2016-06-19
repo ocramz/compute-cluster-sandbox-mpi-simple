@@ -13,13 +13,12 @@ addons:
     - gfortran
     - gcc
 
-env:
-  global:
-    - PETSC_VERSION=3.7.2
-    - PETSC_DIR=/opt/petsc-${PETSC_VERSION}
-    - PETSC_ARCH=arch-linux2-c-debug
 
-before_install:  
+before_install:
+  # Travis `env` is available only at the `script` phase, and not here :/
+  - export PETSC_VERSION=3.7.2
+  - export PETSC_DIR=/opt/petsc-${PETSC_VERSION}
+  - export PETSC_ARCH=arch-linux2-c-debug
   - sudo ./install-petsc.sh
   
 script:
