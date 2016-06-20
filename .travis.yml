@@ -44,4 +44,4 @@ script:
 after_success:
 
   # # # run
-  # - mpirun -np 2 -hostlist node01,node02 helloworld
+  - mpirun -np 2 -hostlist node01,node02 helloworld
